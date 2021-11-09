@@ -226,11 +226,11 @@ function! easyterm#create_ipython(split) abort
     execute a:split
     enew
     let l:term_id = termopen(&shell)
-    " let s:buf_id = bufnr()
 
     setlocal nonumber norelativenumber signcolumn=auto bufhidden=wipe
 
-    let l:cmd = ["conda activate face", '']
+    let l:env_name = split(substitute(system('which python'), "/bin/python", "", ""), '/')[-1]
+    let l:cmd = ["conda activate ". l:env_name, '']
     let l:cmd = extend(l:cmd, [join(g:ipython_launch_cmd, ' ')], 1)
     call chansend(l:term_id, l:cmd)
 
